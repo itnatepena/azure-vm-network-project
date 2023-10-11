@@ -1,6 +1,7 @@
-# Azure Virtual Machine Network Inspection Project
+# Azure Virtual Machine Network "Inception" Project
 
 This project guides you in setting up two Virtual Machines (VMs) one within the other, using the same network with Azure and inspecting network traffic between the two machines using Wireshark.
+This project essentially shows you what "nesting" is by demonstrating step by step.
 
 This project assumes you have a basic familiarity with Azure and have an Azure account.
 
@@ -80,7 +81,7 @@ With communication enabled, you can send and receive pings between VM1 and VM2 n
 
 ## Conclusion
 
-This project creates an isolated environment for testing and educational purposes. Virtual machines within virtual machines are not a common practice but can be useful for creating controlled test environments for various purposes. I wanted to emphasize that disabling a firewall can be considered bad practice, and rather we should be allowing specific traffic through using the Azure Portal. This project also provides a visual representation of how VMs and cloud services work together to create new environments and demonstrates their ability to interact with each other.
+This project creates an isolated environment for testing and educational purposes. Virtual machines within virtual machines are not a common practice but can be useful for creating controlled test environments for various purposes mostly relating to security. I wanted to emphasize that disabling a firewall can and often is considered bad practice, and rather we should be allowing specific traffic through using the Azure Portal. This project also provides a visual representation of how VMs and cloud services work together to create new environments and demonstrates their ability to interact with each other.
 
 ![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/fff184d8-b68d-497b-9818-70ab02f0391b)
 
