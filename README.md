@@ -1,93 +1,76 @@
-# Azure Virtual Machine Network "Inception" Project
+# Azure VM Connectivity and File Sharing Lab
 
-This project guides you in setting up two Virtual Machines (VMs) one within the other, using the same network with Azure and inspecting network traffic between the two machines using Wireshark.
-This project essentially shows you what "nesting" is by demonstrating step by step.
+## Introduction
 
-This project assumes you have a basic familiarity with Azure and have an Azure account.
+This project aims to provide a comprehensive demonstration of the process involving the creation of two Azure virtual machines (VMs), the testing of ICMPv4 connectivity between these VMs, capturing network traffic with Wireshark, sharing documents between VMs, modifying and resharing documents, and ultimately transferring a file to a local desktop.
 
-## Getting Started
+## Prerequisites
 
-### 1. Create a Resource Group and VM
+- Microsoft Azure
+- Azure Data Studio
 
-1.1. Create a Resource Group: Using the Azure Portal's search bar, create a resource group. Ensure that you select a Windows 10 image and provide a username and password for your Administrative account on the Virtual Machine (VM). Make sure the VM is within your resource group and click "Create."
+## Step 1: Create Azure Virtual Machines
 
-### ![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/76d48a31-ea3c-436d-a694-b596f5b577b1)
+1. Log in to your Azure portal.
+2. Create two Windows 10 Azure VMs (VM1 and VM2) within the same Azure Virtual Network and subnet.
 
+## Step 2: Allow ICMPv4 Addresses
 
-### 2. Create the Second VM
+1. Configure Network Security Group (NSG) rules to allow ICMP (ping) traffic between VM1 and VM2.
 
-2.1. Create Another VM: In Azure, go to your virtual machines and create a second VM. Ensure it is within the same Resource Group and contained within the virtual network (vnet) created in Step 1 for this lab to work.
+## Step 3: Test ICMPv4 Connectivity
 
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/45a950a3-94f9-4737-b9e3-da3f2f465879)
+1. Connect to VM1 and use the Command Prompt to ping VM2. Ensure successful ICMPv4 connectivity.
+2. Similarly, connect to VM2 and ping VM1.
 
+## Step 4: Install Wireshark on VM1
 
-### 3. Connect Remotely to VM1
+1. Download and install Wireshark on VM1 to capture network traffic.
 
-3.1. Copy Public IP Address: Head to Virtual Machines on Azure using the search bar. Click on the first VM and copy the PUBLIC IP address.
+## Step 5: Test Connectivity and View in Wireshark
 
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/3ef6bbe0-8989-491d-8f1a-5c93b6efe934)
+1. Start a packet capture in Wireshark on VM1.
+2. On VM2, ping VM1 and observe the captured ICMPv4 packets in Wireshark.
 
+## Step 6: Create a Shareable Document
 
-3.2. Connect via Remote Desktop: Open Remote Desktop Connection on your Windows PC, enter the copied IP address, connect, and input your username and password credentials.
+1. On VM1 (also known as Win1), create a document that you want to share between VMs.
 
-### 4. Install Wireshark on VM1
+## Step 7: Share the Document
 
-Download and install Wireshark within VM1. (Provide a brief explanation of why you are using Wireshark for this project)
+1. Share the document on Win1 and set it as shareable with specific user permissions. Apply the changes.
 
+## Step 8: Restart to Apply Settings
 
-### 5. Obtain the Private IP from VM2
+1. Restart VM1 to ensure that the document sharing settings take effect.
 
-Get the PRIVATE IP from VM2. Copy and paste both the Private IP addresses YOU MADE as you will be using them multiple times in this project. (Yours may be different from mine)
+## Step 9: Access VM1 (Win1) from VM2 (Win2)
 
-- VM1: 10.0.0.4
-- VM2: 10.0.0.5
+1. On Win2 (VM2), navigate to Win1's shared resources using the path \\Win1\SharedFolderName.
 
-5.1. Connect to VM2: Use VM2's PUBLIC IP address to connect to VM2 from VM1 via Remote Desktop Connection.
+## Step 10: Transfer the Document to Local Desktop
 
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/cffd1a9d-8871-40e1-ad1c-ed01626dc125)
+1. Copy the shared document from Win1 to your local desktop (the desktop of the machine you are using to access VMs).
 
+## Step 11: Modify and Reshare the Document
 
-### 6. Explore the Environment
+1. Modify the document locally and reshare it from your local desktop, making it accessible to anyone.
 
-Explore your environment, create a PowerShell session on VM2 and a CMD prompt on VM1(this makes it easy to see the difference). You can ping VM1 from VM2 and vice versa. Observe what happens when you run commands such as "whoami."
+## Step 12: Document and Finalize
 
-### 7. Troubleshooting Network Issues
+1. Document the observations, steps, and findings in your project documentation.
+2. Share the project documentation and any insights gained with others on your Azure Virtual Network.
 
-Both VMs may experience "requests timed out" when trying to ping each other. You can check connectivity by pinging google.com to verify network connectivity. Explore potential issues related to firewalls blocking virtual machine traffic.
+## What We Learned
 
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/7fc9f1c4-aee2-45f5-927f-fed473eea785)
+In this project, we learned how to:
 
-We can try Pinging Google, and/or a loopback address(127.0.0.1) to confirm our TCP/IP is working.
+- Create Azure Virtual Machines.
+- Configure ICMPv4 rules in Network Security Groups.
+- Test ICMPv4 connectivity between VMs.
+- Install and use Wireshark for network traffic capture.
+- Share documents between VMs.
+- Modify and reshare documents.
+- Transfer files to a local desktop.
 
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/c9d35c1f-ef75-4917-bed0-7d009600bedb)
-
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/ee8e5ae4-a669-4264-a3e8-109cc77e49bc)
-
-
-### 8. Enable Communication
-
-To Enable communication between VM1 and VM2, you will ahve to configuring firewall settings or disable the firewall temporarily. This is essential to establish network communication in this Project and is fine for our uses, and future uses. 
-IMPORTANT NOTE: It is generally not a good idea to leave a firewall disabled, especially in sensitive circumstances. For security reasons, consider re-enabling the firewall or configuring it to allow specific traffic when you're done with this project.
-
-### 9. Inspect Traffic with Wireshark
-
-With communication enabled, you can send and receive pings between VM1 and VM2 now. Use Wireshark to inspect network traffic. Filter Wireshark for ICMP traffic to see how the two VMs communicate.
-
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/26ca90db-795a-46ed-9e3d-4a72b0d218d5)
-
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/515f518e-5fe8-4da4-9d86-9fe1fa1e86f6)
-
-
-
-## Conclusion
-
-This project creates an isolated environment for testing and educational purposes. Virtual machines within virtual machines are not a common practice but can be useful for creating controlled test environments for various purposes mostly relating to security. I wanted to emphasize that disabling a firewall can and often is considered bad practice, and rather we should be allowing specific traffic through using the Azure Portal. This project also provides a visual representation of how VMs and cloud services work together to create new environments and demonstrates their ability to interact with each other.
-
-![image](https://github.com/itnatepena/azure-network-protocols/assets/147539410/fff184d8-b68d-497b-9818-70ab02f0391b)
-
-
-This README serves as a guide to set up and explore this environment. Feel free to modify and expand upon this project to meet your specific testing and educational needs.
-
-For more information and resources related to Azure and virtual machine networking, refer to Azure's documentation and resources.
-
-**I plan to revise this to include the proper security settings avaialble in the Azure Portal for allowing communication between VM1 and VM2. This was simply a demonstration, without any major purpose.
+This project provides a practical exercise in Azure VM connectivity, network traffic analysis, and file sharing within a virtual network environment.
