@@ -1,3 +1,5 @@
+![image](https://github.com/itnatepena/azure-vm-network-project/assets/147539410/585590c8-0793-4265-bb78-6cea4c8f15a6)
+
 # Azure VM Connectivity and File Sharing Lab
 
 ## Introduction
