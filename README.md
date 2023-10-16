@@ -9,7 +9,11 @@ This project aims to provide a comprehensive demonstration of the process involv
 ## Prerequisites
 
 - Microsoft Azure
-- Azure Data Studio
+- Azure Virtual Machines: Two Windows 10 VMs are created for this project.
+
+## Technologies Used
+- Wireshark
+
 
 ## Step 1: Create Azure Virtual Machines
 
